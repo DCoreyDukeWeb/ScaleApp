@@ -1,4 +1,4 @@
-namespace ScaleApp
+namespace WebApi
 {
     public class WeatherForecast
     {

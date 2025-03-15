@@ -1,5 +1,5 @@
 
-namespace ScaleApp
+namespace WebApi
 {
     public class Program
     {
