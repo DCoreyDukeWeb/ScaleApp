@@ -1,4 +1,6 @@
-﻿using WebAdmin.Components;
+﻿using Data.DBContext;
+using Microsoft.EntityFrameworkCore;
+using WebAdmin.Components;
 
 namespace WebAdmin
 {
@@ -11,6 +13,12 @@ namespace WebAdmin
             // Add services to the container.
             builder.Services.AddRazorComponents()
                 .AddInteractiveServerComponents();
+
+
+            builder.Services.AddDbContext<DataContext>(options =>
+            {
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DataContext"));
+            });
 
             var app = builder.Build();
 
