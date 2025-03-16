@@ -43,8 +43,6 @@ namespace Data.Entities
 
         public string? Notes { get; set; }
 
-        public virtual ICollection<Customer> Customers { get; set; } = new HashSet<Customer>();
-
-        public virtual ICollection<Scale> Scales { get; set; } = new HashSet<Scale>();
+       
     }
 }

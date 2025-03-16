@@ -6,18 +6,12 @@ using System.Collections.Generic;
 
 namespace Data.DBContext.Configurations
 {
-    public class ScalesEntityTypeConfiguration : IEntityTypeConfiguration<Scale>
+    public class ScaleEntityTypeConfiguration : IEntityTypeConfiguration<Scale>
     {
         public void Configure(EntityTypeBuilder<Scale> builder)
         {
             builder
                 .HasKey(x => x.Id);
-
-            builder
-                .HasOne(x => x.Location)
-                .WithMany(x => x.Scales)
-                .HasForeignKey(x => x.LocationId)
-                .OnDelete(DeleteBehavior.NoAction);
 
             builder
                 .Property(x => x.Id)
@@ -85,8 +79,6 @@ namespace Data.DBContext.Configurations
             builder
                 .ToTable("Scales", "dbo");
 
-            builder
-                .ToTable(c => c.HasCheckConstraint("CK__Scales__Id__59FA5E80", "([id]>(0))"));
         }
     }
 }

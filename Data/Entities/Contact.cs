@@ -43,7 +43,5 @@ namespace Data.Entities
         public DateTime? LastContacted { get; set; }
 
         public string? Notes { get; set; }
-
-        public virtual ICollection<Customer> Contacts { get; set; } = new HashSet<Customer>();
     }
 }

@@ -6,12 +6,12 @@ using System.Collections.Generic;
 
 namespace Data.DBContext.Configurations
 {
-    public class UsersEntityTypeConfiguration : IEntityTypeConfiguration<User>
+    public class CustomerEntityTypeConfiguration : IEntityTypeConfiguration<Customer>
     {
-        public void Configure(EntityTypeBuilder<User> builder)
+        public void Configure(EntityTypeBuilder<Customer> builder)
         {
             builder
-                .HasKey(x => x.Id);
+                .HasKey(x => x.Id);          
 
             builder
                 .Property(x => x.Id)
@@ -19,20 +19,8 @@ namespace Data.DBContext.Configurations
                 .HasPrecision(10, 0);
 
             builder
-                .Property(x => x.Username)
-                .HasColumnName("Username")
-                .HasColumnType("varchar")
-                .IsUnicode(false);
-
-            builder
-                .Property(x => x.Email)
-                .HasColumnName("Email")
-                .HasColumnType("varchar")
-                .IsUnicode(false);
-
-            builder
-                .Property(x => x.Password)
-                .HasColumnName("Password")
+                .Property(x => x.Name)
+                .HasColumnName("Name")
                 .HasColumnType("varchar")
                 .IsUnicode(false);
 
@@ -49,7 +37,13 @@ namespace Data.DBContext.Configurations
                 .HasDefaultValueSql("(getdate())");
 
             builder
-                .ToTable("Users", "dbo");
+                .Property(x => x.Notes)
+                .HasColumnName("Notes")
+                .HasColumnType("varchar")
+                .IsUnicode(false);
+
+            builder
+                .ToTable("Customers", "dbo");
         }
     }
 }

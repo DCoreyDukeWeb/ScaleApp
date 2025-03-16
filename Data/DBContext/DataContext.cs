@@ -34,9 +34,11 @@ namespace Data.DBContext
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Location> Locations { get; set; }
         public DbSet<Permission> Permissions { get; set; }
+        public DbSet<RoleHasPermissions> RoleHasPermissions { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<Scale> Scales { get; set; }
         public DbSet<ScaleTicket> ScaleTickets { get; set; }
+        public DbSet<UserHasRole> UserHasRoles { get; set; }
         public DbSet<User> Users { get; set; }
 
     }

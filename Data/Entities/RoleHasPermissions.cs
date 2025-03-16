@@ -1,12 +1,16 @@
-﻿namespace Data.Entities
-{
-    public partial class Permission
-    {
-        public class RoleHasPermissions
-        {
-            public int RoleId { get; set; }
+﻿using DCoreyDuke.CodeBase.Interfaces;
+using System.ComponentModel.DataAnnotations.Schema;
 
-            public int PermissionId { get; set; }
-        }
+namespace Data.Entities
+{
+
+    [Table("RoleHasPermissions")]
+    public class RoleHasPermissions : IJoinTableObject<Role, Permission>
+    {
+        [Column]
+        public int RoleId { get; set; }
+        [Column]
+        public int PermissionId { get; set; }
     }
+
 }

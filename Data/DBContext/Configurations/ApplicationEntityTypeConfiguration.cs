@@ -6,9 +6,9 @@ using System.Collections.Generic;
 
 namespace Data.DBContext.Configurations
 {
-    public class ContactsEntityTypeConfiguration : IEntityTypeConfiguration<Contact>
+    public class ApplicationEntityTypeConfiguration : IEntityTypeConfiguration<Application>
     {
-        public void Configure(EntityTypeBuilder<Contact> builder)
+        public void Configure(EntityTypeBuilder<Application> builder)
         {
             builder
                 .HasKey(x => x.Id);
@@ -25,45 +25,41 @@ namespace Data.DBContext.Configurations
                 .IsUnicode(false);
 
             builder
-                .Property(x => x.Phone1)
-                .HasColumnName("Phone1")
+                .Property(x => x.RelativeUri)
+                .HasColumnName("RelativeURI")
                 .HasColumnType("varchar")
                 .IsUnicode(false);
 
             builder
-                .Property(x => x.Phone2)
-                .HasColumnName("Phone2")
+                .Property(x => x.IndexUrl)
+                .HasColumnName("IndexURL")
                 .HasColumnType("varchar")
                 .IsUnicode(false);
 
             builder
-                .Property(x => x.Fax)
-                .HasColumnName("Fax")
+                .Property(x => x.DirectoryPath)
+                .HasColumnName("DirectoryPath")
                 .HasColumnType("varchar")
                 .IsUnicode(false);
 
             builder
-                .Property(x => x.Email1)
-                .HasColumnName("Email1")
+                .Property(x => x.RepositoryUrl)
+                .HasColumnName("RepositoryUrl")
                 .HasColumnType("varchar")
                 .IsUnicode(false);
 
             builder
-                .Property(x => x.Email2)
-                .HasColumnName("Email2")
+                .Property(x => x.ApplicationType)
+                .HasColumnName("ApplicationType")
                 .HasColumnType("varchar")
                 .IsUnicode(false);
 
             builder
-                .Property(x => x.Url)
-                .HasColumnName("Url")
+                .Property(x => x.CurrentVersion)
+                .HasColumnName("CurrentVersion")
                 .HasColumnType("varchar")
-                .IsUnicode(false);
-
-            builder
-                .Property(x => x.LocationId)
-                .HasColumnName("LocationId")
-                .HasPrecision(10, 0);
+                .IsUnicode(false)
+                .HasDefaultValueSql("('1.0.0.0')");
 
             builder
                 .Property(x => x.CreatedOn)
@@ -78,19 +74,7 @@ namespace Data.DBContext.Configurations
                 .HasDefaultValueSql("(getdate())");
 
             builder
-                .Property(x => x.LastContacted)
-                .HasColumnName("LastContacted")
-                .HasColumnType("datetime")
-                .HasDefaultValueSql("(getdate())");
-
-            builder
-                .Property(x => x.Notes)
-                .HasColumnName("Notes")
-                .HasColumnType("varchar")
-                .IsUnicode(false);
-
-            builder
-                .ToTable("Contacts", "dbo");
+                .ToTable("Applications", "dbo");
         }
     }
 }

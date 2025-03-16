@@ -6,14 +6,13 @@ using System.Collections.Generic;
 
 namespace Data.DBContext.Configurations
 {
-    public class PermissionsEntityTypeConfiguration : IEntityTypeConfiguration<Permission>
+    public class RoleEntityTypeConfiguration : IEntityTypeConfiguration<Role>
     {
-        public void Configure(EntityTypeBuilder<Permission> builder)
+        public void Configure(EntityTypeBuilder<Role> builder)
         {
             builder
                 .HasKey(x => x.Id);
 
-            
 
             builder
                 .Property(x => x.Id)
@@ -27,7 +26,7 @@ namespace Data.DBContext.Configurations
                 .IsUnicode(false);
 
             builder
-                .ToTable("Permissions", "dbo");
+                .ToTable("Roles", "dbo");
         }
     }
 }

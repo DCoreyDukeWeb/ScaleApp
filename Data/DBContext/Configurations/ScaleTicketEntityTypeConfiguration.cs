@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace Data.DBContext.Configurations
 {
-    public class ScaleTicketsEntityTypeConfiguration : IEntityTypeConfiguration<ScaleTicket>
+    public class ScaleTicketEntityTypeConfiguration : IEntityTypeConfiguration<ScaleTicket>
     {
         public void Configure(EntityTypeBuilder<ScaleTicket> builder)
         {

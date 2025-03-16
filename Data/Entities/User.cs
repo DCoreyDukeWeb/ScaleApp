@@ -26,8 +26,7 @@ namespace Data.Entities
 
         public DateTime? UpdatedOn { get; set; }
 
-        public virtual ICollection<Roles> Roles { get; set; } = new HashSet<Roles>();
+        public ICollection<Role> Roles { get; set; } = new List<Role>();
 
-        public virtual ICollection<Roles.UserHasRoles> RolesMaps { get; set; } = new HashSet<Roles.UserHasRoles>();
     }
 }

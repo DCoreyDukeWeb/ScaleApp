@@ -6,9 +6,9 @@ using System.Collections.Generic;
 
 namespace Data.DBContext.Configurations
 {
-    public class ApplicationsEntityTypeConfiguration : IEntityTypeConfiguration<Application>
+    public class LocationEntityTypeConfiguration : IEntityTypeConfiguration<Location>
     {
-        public void Configure(EntityTypeBuilder<Application> builder)
+        public void Configure(EntityTypeBuilder<Location> builder)
         {
             builder
                 .HasKey(x => x.Id);
@@ -25,41 +25,46 @@ namespace Data.DBContext.Configurations
                 .IsUnicode(false);
 
             builder
-                .Property(x => x.RelativeUri)
-                .HasColumnName("RelativeURI")
+                .Property(x => x.Address1)
+                .HasColumnName("Address1")
                 .HasColumnType("varchar")
                 .IsUnicode(false);
 
             builder
-                .Property(x => x.IndexUrl)
-                .HasColumnName("IndexURL")
+                .Property(x => x.Address2)
+                .HasColumnName("Address2")
                 .HasColumnType("varchar")
                 .IsUnicode(false);
 
             builder
-                .Property(x => x.DirectoryPath)
-                .HasColumnName("DirectoryPath")
+                .Property(x => x.City)
+                .HasColumnName("City")
                 .HasColumnType("varchar")
                 .IsUnicode(false);
 
             builder
-                .Property(x => x.RepositoryUrl)
-                .HasColumnName("RepositoryUrl")
+                .Property(x => x.State)
+                .HasColumnName("State")
                 .HasColumnType("varchar")
                 .IsUnicode(false);
 
             builder
-                .Property(x => x.ApplicationType)
-                .HasColumnName("ApplicationType")
+                .Property(x => x.Zip)
+                .HasColumnName("Zip")
                 .HasColumnType("varchar")
                 .IsUnicode(false);
 
             builder
-                .Property(x => x.CurrentVersion)
-                .HasColumnName("CurrentVersion")
+                .Property(x => x.Country)
+                .HasColumnName("Country")
                 .HasColumnType("varchar")
-                .IsUnicode(false)
-                .HasDefaultValueSql("('1.0.0.0')");
+                .IsUnicode(false);
+
+            builder
+                .Property(x => x.LatLong)
+                .HasColumnName("LatLong")
+                .HasColumnType("varchar")
+                .IsUnicode(false);
 
             builder
                 .Property(x => x.CreatedOn)
@@ -74,7 +79,13 @@ namespace Data.DBContext.Configurations
                 .HasDefaultValueSql("(getdate())");
 
             builder
-                .ToTable("Applications", "dbo");
+                .Property(x => x.Notes)
+                .HasColumnName("Notes")
+                .HasColumnType("varchar")
+                .IsUnicode(false);
+
+            builder
+                .ToTable("Locations", "dbo");
         }
     }
 }

@@ -16,13 +16,7 @@ namespace Data.Entities
         [StringLength(256)]
         public string Name { get; set; } = String.Empty;
 
-        public virtual ICollection<Permission> Permissions { get; set; } = new HashSet<Permission>();
-
-        public virtual ICollection<Permission.RoleHasPermissions> PermissionsMaps { get; set; } = new HashSet<Permission.RoleHasPermissions>();
-
-        public virtual ICollection<User> Users { get; set; } = new HashSet<User>();
-
-        public virtual ICollection<Roles.UserHasRoles> UsersMaps { get; set; } = new HashSet<Roles.UserHasRoles>();
+        public ICollection<Permission> Permissions { get; set; } = new List<Permission>();
 
         [NotMapped]
         public DateTime? CreatedOn { get; set; }
