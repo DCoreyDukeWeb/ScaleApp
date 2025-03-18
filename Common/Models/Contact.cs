@@ -1,6 +1,7 @@
 ﻿/*************************************************************************
  * Author: DCoreyDuke
  ************************************************************************/
+using Common.Interfaces;
 using DCoreyDuke.CodeBase.Interfaces;
 using DCoreyDuke.CodeBase.Objects;
 using DCoreyDuke.CodeBase.ValueObjects.General;
@@ -9,10 +10,6 @@ using System.Text.Json;
 
 namespace Common.Models
 {
-    public interface IContact
-    {
-        Name ContactName { get; }
-    }
 
     public class Contact : IDomainModel, IJsonSerializable, IContact
     {

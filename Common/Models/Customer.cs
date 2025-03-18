@@ -1,10 +1,12 @@
-﻿using DCoreyDuke.CodeBase.Interfaces;
+﻿using Common.Interfaces;
+using DCoreyDuke.CodeBase.Interfaces;
 using DCoreyDuke.CodeBase.ValueObjects.General;
 using System.Text.Json;
 
 namespace Common.Models
 {
-    public class Customer : IDomainModel, IJsonSerializable, ILocation, IContact
+
+    public class Customer : IDomainModel, IJsonSerializable, ICustomer
     {
         private string _name = string.Empty;
         private Location _location;

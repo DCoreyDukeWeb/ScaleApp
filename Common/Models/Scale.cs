@@ -1,28 +1,54 @@
-﻿using DCoreyDuke.CodeBase.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿/*************************************************************************
+ * Author: DCoreyDuke
+ ************************************************************************/
+using DCoreyDuke.CodeBase.Interfaces;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace Common.Models
 {
-    public class Scale : IModel
+
+    public class Scale : IDomainModel, IJsonSerializable
     {
+        private string _name = string.Empty;
+        private Location _location;
+        private ScaleDetails? _scaleDetails;
+        private DateTime? _dateInstalled;
+        private DateTime? _dateLastCalibrated;   
+        private string? _installedBy = string.Empty;
+        private string? _calibratedBy = string.Empty;
+        private string? _notes = string.Empty;
 
         private bool _isValid = false;
         private List<string> _validationErrors = new List<string>();
+
+
+        private Scale()
+        { 
         
-        
+        }
+
+        public Scale(string name, Location location, ScaleDetails? scaleDetails, DateTime? dateInstalled, DateTime? dateLastCalibrated, string? installedBy, string? calibratedBy, string? notes) : this()
+        {
+            _name = name;
+            _location = location;
+            _scaleDetails = scaleDetails;
+            _dateInstalled = dateInstalled;
+            _dateLastCalibrated = dateLastCalibrated;
+            _installedBy = installedBy;
+            _calibratedBy = calibratedBy;
+            _notes = notes;
+        }
+
         public string Name { get; }
+        public Location Location { get; }
+        public ScaleDetails? ScaleDetails { get; }
+        public DateTime? DateInstalled { get; }
+        public DateTime? DateLastCalibrated { get; }
+        public string InstalledBy { get; }
+        public string CalibratedBy { get; }
+        public string Notes { get; }
 
-
-
-
-
-
- public bool IsValid { get { Validate(); return _validationErrors.Count == 0; } }
+        public bool IsValid { get { Validate(); return _validationErrors.Count == 0; } }
 
         public List<string> ValidationErrors { get { Validate(); return _validationErrors; } }
 
@@ -31,15 +57,11 @@ namespace Common.Models
             _validationErrors.Clear();
             if (string.IsNullOrEmpty(_name))
             {
-                _validationErrors.Add("Contact Name is required.");
+                _validationErrors.Add("Scale Name is required.");
             }
-            if(_location == null)
+            if (_location == null)
             {
-                _validationErrors.Add("Location is required.");
-            }
-            if (_contact == null)
-            {
-                _validationErrors.Add("Contact is required.");
+                _validationErrors.Add("Scale Location is required.");
             }
         }
 

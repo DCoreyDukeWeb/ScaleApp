@@ -1,6 +1,7 @@
 ﻿/*************************************************************************
  * Author: DCoreyDuke
  ************************************************************************/
+using Common.Interfaces;
 using DCoreyDuke.CodeBase.Interfaces;
 using DCoreyDuke.CodeBase.Objects;
 using DCoreyDuke.CodeBase.ValueObjects.General;
@@ -8,11 +9,6 @@ using System.Text.Json;
 
 namespace Common.Models
 {
-
-    public interface ILocation
-    {
-        Address Address { get; }
-    }
 
     public class Location : IDomainModel, IJsonSerializable, ILocation
     {
