@@ -1,13 +1,14 @@
+/*************************************************************************
+ * Author: DCoreyDuke
+ ************************************************************************/
 using DCoreyDuke.CodeBase.Interfaces;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Data.Entities
 {
     [Table("ScaleTickets")]
-    public partial class ScaleTicket : IEntity
+    public partial class ScaleTicket : IEntity, ITableObject
     {
         [Required]
         [Key]
@@ -15,11 +16,9 @@ namespace Data.Entities
 
         public int ScaleId { get; set; }
 
-        public DateTime? CreatedOn { get; set; }
-
-        public int CreatedBy { get; set; }
-
         public int CustomerId { get; set; }
+
+        public virtual Customer Customer { get; set; }
 
         [StringLength(255)]
         public string TruckId { get; set; } = String.Empty;
@@ -37,7 +36,10 @@ namespace Data.Entities
 
         public string Notes { get; set; } = String.Empty;
 
-        [NotMapped]
+        public int CreatedBy { get; set; }
+
+        public DateTime? CreatedOn { get; set; }
+        
         public DateTime? UpdatedOn { get; set; }
     }
 }

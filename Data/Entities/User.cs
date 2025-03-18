@@ -1,13 +1,14 @@
+/*************************************************************************
+ * Author: DCoreyDuke
+ ************************************************************************/
 using DCoreyDuke.CodeBase.Interfaces;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Data.Entities
 {
     [Table("Users")]
-    public partial class User : IEntity
+    public partial class User : IEntity, ITableObject
     {
         [Required]
         [Key]
@@ -26,7 +27,7 @@ namespace Data.Entities
 
         public DateTime? UpdatedOn { get; set; }
 
-        public ICollection<Role> Roles { get; set; } = new List<Role>();
+        public virtual ICollection<Role> Roles { get; set; } 
 
     }
 }

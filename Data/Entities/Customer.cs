@@ -1,13 +1,14 @@
+/*************************************************************************
+ * Author: DCoreyDuke
+ ************************************************************************/
 using DCoreyDuke.CodeBase.Interfaces;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Data.Entities
 {
     [Table("Customers")]
-    public partial class Customer : IEntity
+    public partial class Customer : IEntity, ITableObject
     {
         [Required]
         [Key]
@@ -29,5 +30,7 @@ namespace Data.Entities
         public DateTime? UpdatedOn { get; set; }
 
         public string? Notes { get; set; }
+
+        
     }
 }

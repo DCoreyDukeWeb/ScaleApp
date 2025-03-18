@@ -1,13 +1,14 @@
+/*************************************************************************
+ * Author: DCoreyDuke
+ ************************************************************************/
 using DCoreyDuke.CodeBase.Interfaces;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Data.Entities
 {
     [Table("Scales")]
-    public partial class Scale : IEntity
+    public partial class Scale : IEntity, ITableObject
     {
         [Required]
         [Key]
@@ -16,37 +17,37 @@ namespace Data.Entities
         public int LocationId { get; set; }
 
         [StringLength(256)]
-        public string Name { get; set; } = String.Empty;
+        public string Name { get; set; }
 
-        public virtual Location Location { get; set; } = null!;
-
-        [StringLength(256)]
-        public string ScaleMfg { get; set; } = String.Empty;
+        public virtual Location Location { get; set; }
 
         [StringLength(256)]
-        public string ScaleModel { get; set; } = String.Empty;
+        public string ScaleMfg { get; set; }
 
         [StringLength(256)]
-        public string ScaleSerialNo { get; set; } = String.Empty;
+        public string ScaleModel { get; set; }
 
         [StringLength(256)]
-        public string ScaleProperties { get; set; } = String.Empty;
+        public string ScaleSerialNo { get; set; }
+
+        [StringLength(256)]
+        public string ScaleProperties { get; set; }
 
         public DateTime DateInstalled { get; set; }
 
         [StringLength(256)]
-        public string Installer { get; set; } = String.Empty;
+        public string Installer { get; set; }
 
         public DateTime DateCalibrated { get; set; }
 
         [StringLength(256)]
-        public string CalibratedBy { get; set; } = String.Empty;
+        public string CalibratedBy { get; set; }
 
-        public string Notes { get; set; } = String.Empty;
+        public string Notes { get; set; }
 
-        [NotMapped]
+      
         public DateTime? CreatedOn { get; set; }
-        [NotMapped]
+       
         public DateTime? UpdatedOn { get; set; }
     }
 }

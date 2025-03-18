@@ -1,13 +1,14 @@
+/*************************************************************************
+ * Author: DCoreyDuke
+ ************************************************************************/
 using DCoreyDuke.CodeBase.Interfaces;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Data.Entities
 {
     [Table("Locations")]
-    public partial class Location : IEntity
+    public partial class Location : IEntity, ITableObject
     {
         [Required]
         [Key]

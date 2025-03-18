@@ -37,7 +37,9 @@ DROP TABLE IF EXISTS Roles;
 
 CREATE TABLE Roles(
     Id INT NOT NULL IDENTITY PRIMARY KEY,
-    [Name] VARCHAR(256) NOT NULL
+    [Name] VARCHAR(256) NOT NULL,
+    CreatedOn DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
+    UpdatedOn DATETIME NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 INSERT INTO [dbo].[Roles]([Name]) VALUES('Admin')
@@ -49,7 +51,9 @@ DROP TABLE IF EXISTS [Permissions];
 
 CREATE TABLE [Permissions](
     Id INT NOT NULL IDENTITY PRIMARY KEY,
-    [Name] VARCHAR(256) NOT NULL
+    [Name] VARCHAR(256) NOT NULL,
+    CreatedOn DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
+    UpdatedOn DATETIME NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 INSERT INTO [dbo].[Permissions]([Name]) VALUES('Create Scale Ticket')
@@ -60,13 +64,12 @@ INSERT INTO [dbo].[Permissions]([Name]) VALUES('Delete Scale Ticket')
 DROP TABLE IF EXISTS RoleHasPermissions;
 
 CREATE TABLE RoleHasPermissions(
+    Id INT NOT NULL IDENTITY PRIMARY KEY,
     RoleId INT NOT NULL,
     PermissionId INT NOT NULL,
-    PRIMARY KEY(RoleId, PermissionId)
+    CreatedOn DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
+    UpdatedOn DATETIME NULL DEFAULT CURRENT_TIMESTAMP
 );
-
-ALTER TABLE RoleHasPermissions ADD CONSTRAINT role_has_permissions_roleId FOREIGN KEY(RoleId) REFERENCES Roles(Id);
-ALTER TABLE RoleHasPermissions ADD CONSTRAINT role_has_permissions_permissionId FOREIGN KEY(PermissionId) REFERENCES Permissions(Id);
 
 INSERT INTO [dbo].[RoleHasPermissions]([RoleId], [PermissionId]) VALUES(1, 1)
 INSERT INTO [dbo].[RoleHasPermissions]([RoleId], [PermissionId]) VALUES(1, 2)
@@ -98,13 +101,12 @@ INSERT INTO [dbo].[Users]([Username], [Email], [Password], [CreatedOn], [Updated
 DROP TABLE IF EXISTS UserHasRoles;
 
 CREATE TABLE UserHasRoles(
+    Id INT NOT NULL IDENTITY PRIMARY KEY,
     RoleId INT NOT NULL,
     UserId INT NOT NULL,
-    PRIMARY KEY(RoleId, UserId)
+    CreatedOn DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
+    UpdatedOn DATETIME NULL DEFAULT CURRENT_TIMESTAMP
 );
-
-ALTER TABLE UserHasRoles ADD CONSTRAINT user_has_roles_roleId FOREIGN KEY(RoleId) REFERENCES Roles(Id);
-ALTER TABLE UserHasRoles ADD CONSTRAINT user_has_roles_userId FOREIGN KEY(UserId) REFERENCES Users(Id);
 
 INSERT INTO [dbo].[UserHasRoles]([RoleId], [UserId]) VALUES(1, 1)
 INSERT INTO [dbo].[UserHasRoles]([RoleId], [UserId]) VALUES(2, 2)
@@ -173,8 +175,6 @@ CREATE TABLE Customers(
 	Notes VARCHAR(max) NULL
 );
 
-ALTER TABLE Customers ADD CONSTRAINT customer_location_id FOREIGN KEY(LocationId) REFERENCES Locations(Id);
-ALTER TABLE Customers ADD CONSTRAINT customer_contact_id FOREIGN KEY(ContactId) REFERENCES Contacts(Id);
 
 INSERT INTO [dbo].[Customers]([Name],[LocationId],[ContactId],[CreatedOn],[UpdatedOn],[Notes])
 VALUES('Customer 1', 1, 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Customer 1')
@@ -195,8 +195,6 @@ CREATE TABLE Scales(
     CalibratedBy VARCHAR(256) NOT NULL,
     Notes VARCHAR(max) NOT NULL
 );
-
-ALTER TABLE Scales ADD CONSTRAINT scale_location_id FOREIGN KEY(LocationId) REFERENCES Locations(Id);
 
 INSERT INTO [dbo].[Scales]([Name],[LocationId],[ScaleMfg],[ScaleModel],[ScaleSerialNo],[ScaleProperties],[DateInstalled],[Installer],[DateCalibrated],[CalibratedBy],[Notes])
 VALUES('Scale 1', 1, 'Quality Scales, Inc', 'Weigh Master 100', '123asxdqq2-43i', '{[name=value], [name=value]}', CURRENT_TIMESTAMP, 'Certified Installer 10905', CURRENT_TIMESTAMP, 'Certified Installer 10905', 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...')
@@ -224,9 +222,6 @@ CREATE TABLE ScaleTickets(
     VehicleType INT NOT NULL,
     Notes VARCHAR(max) NOT NULL
 );
-
-ALTER TABLE ScaleTickets ADD CONSTRAINT scale_ticket_scale_id FOREIGN KEY(ScaleId) REFERENCES Scale(Id);
-ALTER TABLE ScaleTickets ADD CONSTRAINT scale_ticket_created_by FOREIGN KEY(CreatedBy) REFERENCES Users(Id);
 
 INSERT INTO [dbo].[ScaleTickets]([ScaleId],[CreatedOn],[CreatedBy],[CustomerId],[TruckId],[DriverId],[WeightTare],[WeightNet],[WeightGross],[VehicleType],[Notes])
 VALUES(1, CURRENT_TIMESTAMP, 3, 1, 'Good Ole Rig #5, Trl# 100', 'Justin Case', 6500, 12007, 10003, 1, 'Empty Trl Check In')
