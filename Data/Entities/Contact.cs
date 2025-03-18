@@ -37,6 +37,8 @@ namespace Data.Entities
 
         public int? LocationId { get; set; }
 
+        public virtual Location? Location { get; set; }
+
         public DateTime? CreatedOn { get; set; }
 
         public DateTime? UpdatedOn { get; set; }

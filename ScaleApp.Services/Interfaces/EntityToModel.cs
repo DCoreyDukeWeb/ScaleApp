@@ -1,7 +1,7 @@
 ﻿/*************************************************************************
  * Author: DCoreyDuke
  ************************************************************************/
-namespace Services.Mappers.EntityToModel
+namespace ScaleApp.Services.Interfaces
 {
     /// <summary>
     /// Defines a contract for converting entities to models.

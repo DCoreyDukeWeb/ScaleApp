@@ -63,7 +63,7 @@ namespace Common.Models
             {
                 _validationErrors.Add("Scale Name is required.");
             }
-            if (_location == null)
+            if (_scale.Location == null)
             {
                 _validationErrors.Add("Scale Location is required.");
             }

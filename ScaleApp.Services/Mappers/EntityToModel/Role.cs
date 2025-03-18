@@ -2,6 +2,7 @@
  * Author: DCoreyDuke
  ************************************************************************/
 using DCoreyDuke.CodeBase.Auth;
+using ScaleApp.Services.Interfaces;
 
 namespace Services.Mappers.EntityToModel
 {

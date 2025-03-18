@@ -14,7 +14,9 @@
 
 
   <ItemGroup>
-    <Folder Include="Services\" />
+    <Folder Include="Mappers\" />
+    <Folder Include="Exceptions\" />
+    <Folder Include="Exceptions\" />
   </ItemGroup>
   
 </Project>

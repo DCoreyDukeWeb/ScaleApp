@@ -81,6 +81,24 @@ namespace Common.Models
             _notes = notes;
         }
 
+         public Contact(string name, string? phone1, string? phone2, string? fax,
+                       string? email1, string? email2, string? url, string address1, string address2,
+                       string city, State state, string zip, DateTime? lastContacted, string? notes)
+        {
+            _contactName = new(name);
+            _name = _contactName.GetName(NameFormat.FirstNameFirst);
+            _phone1 = new PhoneNumber(phone1) ?? null;
+            _phone2 = new PhoneNumber(phone2) ?? null;
+            _fax = new PhoneNumber(fax) ?? null; ;
+            _email1 = new EmailAddress(email1) ?? null;
+            _email2 = new EmailAddress(email2) ?? null;
+            _url = new Url(url) ?? null;
+            Address _address = new Address(address1, address2, string.Empty, city, state, zip);
+            _location = new Location(_name, _address);
+            _lastContacted = lastContacted ?? DateTime.Now;
+            _notes = notes;
+        }
+
         public string Name
         {
             get

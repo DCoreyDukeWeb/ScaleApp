@@ -101,6 +101,10 @@ namespace Common.Models
             {
                 return _latLng;
             }
+            set
+            {
+                _latLng = value;
+            }
         }
 
         public string Notes
