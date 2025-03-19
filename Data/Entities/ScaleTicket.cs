@@ -16,6 +16,8 @@ namespace Data.Entities
 
         public int ScaleId { get; set; }
 
+        public Scale Scale { get; set; }
+
         public int CustomerId { get; set; }
 
         public virtual Customer Customer { get; set; }

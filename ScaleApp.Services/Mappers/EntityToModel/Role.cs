@@ -27,7 +27,7 @@ namespace Services.Mappers.EntityToModel
             _model = Map();
         }
 
-        private Common.Models.Role Map()
+        public Common.Models.Role Map()
         {
          
             List<AuthPermission> _permissions = new List<AuthPermission>();
@@ -39,9 +39,10 @@ namespace Services.Mappers.EntityToModel
             (
                 _entity.Name,
                 _permissions
-           );       
-            }
+            );       
+        }
 
+        public Data.Entities.Role Unmapped { get { return _entity; } }
         public Common.Models.Role Mapped{get{return _model;} }
     }
 }

@@ -27,7 +27,7 @@ namespace Services.Mappers.EntityToModel
             _model = Map();
         }
 
-        private Common.Models.User Map()
+        public Common.Models.User Map()
         {
          
             List<AuthRole> _roles = new List<AuthRole>();
@@ -41,9 +41,10 @@ namespace Services.Mappers.EntityToModel
                 _entity.Email,
                 _entity.Password,
                 _roles
-           );       
-            }
+            );       
+        }
 
+        public Data.Entities.User Unmapped { get { return _entity; } }
         public Common.Models.User Mapped{get{return _model;} }
     }
 }
