@@ -37,14 +37,23 @@ DROP TABLE IF EXISTS Roles;
 
 CREATE TABLE Roles(
     Id INT NOT NULL IDENTITY PRIMARY KEY,
+	[ApplicationId] INT NOT NULL,
     [Name] VARCHAR(256) NOT NULL,
     CreatedOn DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
-    UpdatedOn DATETIME NULL DEFAULT CURRENT_TIMESTAMP
+    UpdatedOn DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
+	CONSTRAINT FK_Roles_ApplictionID FOREIGN KEY (ApplicationId)
+        REFERENCES Applications(Id)
 );
 
-INSERT INTO [dbo].[Roles]([Name]) VALUES('Admin')
-INSERT INTO [dbo].[Roles]([Name]) VALUES('Manager')
-INSERT INTO [dbo].[Roles]([Name]) VALUES('User')
+INSERT INTO [dbo].[Roles]([ApplicationId], [Name]) VALUES(1, 'Admin')
+INSERT INTO [dbo].[Roles]([ApplicationId], [Name]) VALUES(1, 'Manager')
+INSERT INTO [dbo].[Roles]([ApplicationId], [Name]) VALUES(1, 'User')
+INSERT INTO [dbo].[Roles]([ApplicationId], [Name]) VALUES(2, 'Admin')
+INSERT INTO [dbo].[Roles]([ApplicationId], [Name]) VALUES(2, 'Manager')
+INSERT INTO [dbo].[Roles]([ApplicationId], [Name]) VALUES(2, 'User')
+INSERT INTO [dbo].[Roles]([ApplicationId], [Name]) VALUES(3, 'Admin')
+INSERT INTO [dbo].[Roles]([ApplicationId], [Name]) VALUES(3, 'Manager')
+INSERT INTO [dbo].[Roles]([ApplicationId], [Name]) VALUES(3, 'User')
 
 
 DROP TABLE IF EXISTS [Permissions];
@@ -56,10 +65,6 @@ CREATE TABLE [Permissions](
     UpdatedOn DATETIME NULL DEFAULT CURRENT_TIMESTAMP
 );
 
-INSERT INTO [dbo].[Permissions]([Name]) VALUES('Create Scale Ticket')
-INSERT INTO [dbo].[Permissions]([Name]) VALUES('View Scale Ticket')
-INSERT INTO [dbo].[Permissions]([Name]) VALUES('Edit Scale Ticket')
-INSERT INTO [dbo].[Permissions]([Name]) VALUES('Delete Scale Ticket')
 
 DROP TABLE IF EXISTS RoleHasPermissions;
 
@@ -68,7 +73,9 @@ CREATE TABLE RoleHasPermissions(
     RoleId INT NOT NULL,
     PermissionId INT NOT NULL,
     CreatedOn DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
-    UpdatedOn DATETIME NULL DEFAULT CURRENT_TIMESTAMP
+    UpdatedOn DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT FK_RoleHasPermissions_RoleId FOREIGN KEY (RoleId) REFERENCES Roles(Id),
+    CONSTRAINT FK_RoleHasPermissions_PermissionId FOREIGN KEY (PermissionId) REFERENCES Permissions(Id)
 );
 
 INSERT INTO [dbo].[RoleHasPermissions]([RoleId], [PermissionId]) VALUES(1, 1)
@@ -87,30 +94,21 @@ DROP TABLE IF EXISTS Users;
 
 CREATE TABLE Users(
     Id INT NOT NULL IDENTITY PRIMARY KEY,
-    Username VARCHAR(255) NOT NULL,
+    ApplicationId INT NOT NULL,
+    RoleId INT NOT NULL,
+    Username VARCHAR(256) NOT NULL,
     Email VARCHAR(256) NOT NULL,
     Password VARCHAR(256) NOT NULL,
     CreatedOn DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
-    UpdatedOn DATETIME NULL DEFAULT CURRENT_TIMESTAMP
+    UpdatedOn DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT FK_Users_ApplicationId FOREIGN KEY (ApplicationId) REFERENCES Applications(Id),
+    CONSTRAINT FK_Users_RoleId FOREIGN KEY (RoleId) REFERENCES Roles(Id)    
 );
 
-INSERT INTO [dbo].[Users]([Username], [Email], [Password], [CreatedOn], [UpdatedOn]) VALUES('admin', 'admin@scaleapp.com', 'password', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
-INSERT INTO [dbo].[Users]([Username], [Email], [Password], [CreatedOn], [UpdatedOn]) VALUES('manager', 'manager@scaleapp.com', 'password', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
-INSERT INTO [dbo].[Users]([Username], [Email], [Password], [CreatedOn], [UpdatedOn]) VALUES('user', 'user@scaleapp.com', 'password', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+INSERT INTO [dbo].[Users]([ApplicationId], [RoleId],[Username], [Email], [Password], [CreatedOn], [UpdatedOn]) VALUES(1, 1, 'admin', 'admin@scaleapp.com', 'password', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+INSERT INTO [dbo].[Users]([ApplicationId], [RoleId],[Username], [Email], [Password], [CreatedOn], [UpdatedOn]) VALUES(1, 2, 'manager', 'manager@scaleapp.com', 'password', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+INSERT INTO [dbo].[Users]([ApplicationId], [RoleId],[Username], [Email], [Password], [CreatedOn], [UpdatedOn]) VALUES(1, 3, 'user', 'user@scaleapp.com', 'password', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
 
-DROP TABLE IF EXISTS UserHasRoles;
-
-CREATE TABLE UserHasRoles(
-    Id INT NOT NULL IDENTITY PRIMARY KEY,
-    RoleId INT NOT NULL,
-    UserId INT NOT NULL,
-    CreatedOn DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
-    UpdatedOn DATETIME NULL DEFAULT CURRENT_TIMESTAMP
-);
-
-INSERT INTO [dbo].[UserHasRoles]([RoleId], [UserId]) VALUES(1, 1)
-INSERT INTO [dbo].[UserHasRoles]([RoleId], [UserId]) VALUES(2, 2)
-INSERT INTO [dbo].[UserHasRoles]([RoleId], [UserId]) VALUES(3, 3)
 
 DROP TABLE IF EXISTS [Locations];
 
@@ -151,7 +149,8 @@ CREATE TABLE Contacts(
     CreatedOn DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
     UpdatedOn DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
 	LastContacted DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
-	Notes VARCHAR(max) NULL
+	Notes VARCHAR(max) NULL,
+    CONSTRAINT FK_Contacts_LocationId FOREIGN KEY (LocationId) REFERENCES Locations(Id)
 );
 
 INSERT INTO [dbo].[Contacts]([Name], [Phone1], [Phone2], [Fax], [Email1], [Email2], [Url], [LocationId], [CreatedOn], [UpdatedOn], [LastContacted], [Notes])
@@ -172,7 +171,9 @@ CREATE TABLE Customers(
 	ContactId INT NULL,
     CreatedOn DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
     UpdatedOn DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
-	Notes VARCHAR(max) NULL
+	Notes VARCHAR(max) NULL,
+    CONSTRAINT FK_Customers_LocationId FOREIGN KEY (LocationId) REFERENCES Locations(Id),
+    CONSTRAINT FK_Customers_ContactId FOREIGN KEY (ContactId) REFERENCES Contacts(Id)
 );
 
 
@@ -193,7 +194,8 @@ CREATE TABLE Scales(
     Installer VARCHAR(256) NOT NULL,
     DateCalibrated DATETIME NOT NULL,
     CalibratedBy VARCHAR(256) NOT NULL,
-    Notes VARCHAR(max) NOT NULL
+    Notes VARCHAR(max) NOT NULL,
+    CONSTRAINT FK_Scales_LocationId FOREIGN KEY (LocationId) REFERENCES Locations(Id)
 );
 
 INSERT INTO [dbo].[Scales]([Name],[LocationId],[ScaleMfg],[ScaleModel],[ScaleSerialNo],[ScaleProperties],[DateInstalled],[Installer],[DateCalibrated],[CalibratedBy],[Notes])
@@ -214,13 +216,14 @@ CREATE TABLE ScaleTickets(
     CreatedOn DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
     CreatedBy INT NOT NULL,
 	CustomerId INT NOT NULL,
-    TruckId VARCHAR(255) NOT NULL,
-    DriverId VARCHAR(255) NOT NULL,
+    TruckId VARCHAR(256) NOT NULL,
+    DriverId VARCHAR(256) NOT NULL,
     WeightTare INT NOT NULL,
     WeightNet INT NOT NULL,
     WeightGross INT NOT NULL,
     VehicleType INT NOT NULL,
-    Notes VARCHAR(max) NOT NULL
+    Notes VARCHAR(max) NOT NULL,
+    CONSTRAINT FK_ScaleTickets_ScaleId FOREIGN KEY (ScaleId) REFERENCES Scales(Id)
 );
 
 INSERT INTO [dbo].[ScaleTickets]([ScaleId],[CreatedOn],[CreatedBy],[CustomerId],[TruckId],[DriverId],[WeightTare],[WeightNet],[WeightGross],[VehicleType],[Notes])

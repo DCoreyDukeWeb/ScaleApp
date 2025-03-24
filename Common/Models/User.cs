@@ -1,19 +1,18 @@
 ﻿/*************************************************************************
  * Author: DCoreyDuke
  ************************************************************************/
-using DCoreyDuke.CodeBase.Auth;
-using DCoreyDuke.CodeBase.Interfaces;
+
 using System.Collections.Specialized;
 using System.Text.Json;
+using DCoreyDuke.CodeBase.Auth;
+using DCoreyDuke.CodeBase.Interfaces;
 
-
-namespace Common.Models
+namespace ScaleApp.Common.Models
 {
     public class User : AuthUser, IDomainModel, IJsonSerializable, IEquatable<User>
     {
 
-        private bool _isValid = false;
-        private List<string> _validationErrors = new List<string>();
+        private readonly List<string> _validationErrors = [];
         
         public User(AuthUser user) : base(user)
         {
@@ -22,11 +21,17 @@ namespace Common.Models
         {
         }
 
-         public User(string username, string email, string password, List<AuthRole> roles) : base(username, email, password, roles)
+         public User(string username, string email, string password, AuthRole role) : base(username, email, password, role)
         {
         }
+         public User(int id, string username, string email, string password, AuthRole role) : base(username, email, password, role)
+        {
+            Id = id;
+        }
 
-        public string Name { get { return Username; } }
+         public int Id { get; set; }
+
+        public string Name => Username;
 
         public bool IsValid { get { Validate(); return _validationErrors.Count == 0; } }
 

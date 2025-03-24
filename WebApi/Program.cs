@@ -1,9 +1,8 @@
-
-using Data.DBContext;
-using Data.Repositories;
 using Microsoft.EntityFrameworkCore;
+using ScaleApp.Data.DBContext;
+using ScaleApp.Data.Repositories;
 
-namespace WebApi
+namespace ScaleApp.WebApi
 {
     public class Program
     {

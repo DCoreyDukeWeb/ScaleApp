@@ -1,9 +1,10 @@
 ﻿/*************************************************************************
  * Author: DCoreyDuke
  ************************************************************************/
+
 using ScaleApp.Services.Interfaces;
 
-namespace Services.Mappers.EntityToModel
+namespace ScaleApp.Services.Mappers.EntityToModel
 {
     /// <summary>
     ///  Represents a scaleticket entity that maps data from a Data.Entities.Scale to a Common.Models.Scale. It
@@ -11,32 +12,30 @@ namespace Services.Mappers.EntityToModel
     ///</summary>   
     public class ScaleTicket : EntityToModel<Data.Entities.ScaleTicket, Common.Models.ScaleTicket>
     {
-        private Data.Entities.ScaleTicket _entity;
-        private Common.Models.ScaleTicket _model;
+        private readonly Data.Entities.ScaleTicket _entity;
+        private readonly Common.Models.ScaleTicket _model;
 
         private ScaleTicket(){ }
 
         public ScaleTicket(Data.Entities.ScaleTicket entity)
         {
-            if (entity == null)
-            {
-                throw new ArgumentNullException("Data.Entities.ScaleTicket Must Be Provided");
-            }
+            ArgumentNullException.ThrowIfNull(entity);
             _entity = entity;
             _model = Map();
         }
 
-        public Common.Models.ScaleTicket Map()
+        private Common.Models.ScaleTicket Map()
         {
             Scale scale = new Scale(_entity.Scale);
-            Common.Models.Scale scale_mapped = scale.Map();
+            Common.Models.Scale scaleMapped = scale.Mapped;
             Customer customer = new Customer(_entity.Customer);
-            Common.Models.Customer customer_mapped = customer.Map();
+            Common.Models.Customer customerMapped = customer.Mapped;
             return new Common.Models.ScaleTicket
             (
-                customer_mapped.Name,
-                scale_mapped,
-                customer_mapped,
+                _entity.Id,
+                customerMapped.Name,
+                scaleMapped,
+                customerMapped,
                 _entity.TruckId,
                 _entity.DriverId,
                 _entity.WeightGross,
@@ -46,8 +45,8 @@ namespace Services.Mappers.EntityToModel
             );       
         }
 
-        public Data.Entities.ScaleTicket Unmapped { get { return _entity; } }
+        public Data.Entities.ScaleTicket Unmapped => _entity;
 
-        public Common.Models.ScaleTicket Mapped{get{return _model;} }
+        public Common.Models.ScaleTicket Mapped => _model;
     }
 }

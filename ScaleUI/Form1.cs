@@ -1,4 +1,4 @@
-namespace ScaleUI
+namespace ScaleApp.ScaleUI
 {
     public partial class Form1 : Form
     {

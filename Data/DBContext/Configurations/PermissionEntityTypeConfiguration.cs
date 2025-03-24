@@ -1,10 +1,8 @@
-using Data.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
+using ScaleApp.Data.Entities;
 
-namespace Data.DBContext.Configurations
+namespace ScaleApp.Data.DBContext.Configurations
 {
     public class PermissionEntityTypeConfiguration : IEntityTypeConfiguration<Permission>
     {
@@ -12,8 +10,6 @@ namespace Data.DBContext.Configurations
         {
             builder
                 .HasKey(x => x.Id);
-
-            
 
             builder
                 .Property(x => x.Id)
@@ -25,6 +21,18 @@ namespace Data.DBContext.Configurations
                 .HasColumnName("Name")
                 .HasColumnType("varchar")
                 .IsUnicode(false);
+
+            builder
+                .Property(x => x.CreatedOn)
+                .HasColumnName("CreatedOn")
+                .HasColumnType("datetime")
+                .HasDefaultValueSql("(getdate())");
+
+            builder
+                .Property(x => x.UpdatedOn)
+                .HasColumnName("UpdatedOn")
+                .HasColumnType("datetime")
+                .HasDefaultValueSql("(getdate())");
 
             builder
                 .ToTable("Permissions", "dbo");

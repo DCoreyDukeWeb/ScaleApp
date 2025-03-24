@@ -1,17 +1,27 @@
-using Data.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
+using ScaleApp.Data.Entities;
 
-namespace Data.DBContext.Configurations
+namespace ScaleApp.Data.DBContext.Configurations
 {
     public class CustomerEntityTypeConfiguration : IEntityTypeConfiguration<Customer>
     {
         public void Configure(EntityTypeBuilder<Customer> builder)
         {
             builder
-                .HasKey(x => x.Id);          
+                .HasKey(x => x.Id);
+
+            builder
+                .HasOne(x => x.Location)
+                .WithMany(x => x.Customers)
+                .HasForeignKey(x => x.LocationId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            builder
+                .HasOne(x => x.Contact)
+                .WithMany(x => x.Contacts)
+                .HasForeignKey(x => x.ContactId)
+                .OnDelete(DeleteBehavior.NoAction);
 
             builder
                 .Property(x => x.Id)

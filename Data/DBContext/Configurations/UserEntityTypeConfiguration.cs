@@ -1,10 +1,8 @@
-using Data.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
+using ScaleApp.Data.Entities;
 
-namespace Data.DBContext.Configurations
+namespace ScaleApp.Data.DBContext.Configurations
 {
     public class UserEntityTypeConfiguration : IEntityTypeConfiguration<User>
     {
@@ -12,6 +10,18 @@ namespace Data.DBContext.Configurations
         {
             builder
                 .HasKey(x => x.Id);
+
+            builder
+                .HasOne(x => x.Application)
+                .WithMany(x => x.Users)
+                .HasForeignKey(x => x.ApplicationId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            builder
+                .HasOne(x => x.Role)
+                .WithMany(x => x.Users)
+                .HasForeignKey(x => x.RoleId)
+                .OnDelete(DeleteBehavior.NoAction);
 
             builder
                 .Property(x => x.Id)

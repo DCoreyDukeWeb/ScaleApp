@@ -1,29 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DCoreyDuke.CodeBase.Abstracts;
 using DCoreyDuke.CodeBase.Interfaces;
-using DCoreyDuke.CodeBase.Abstracts;
-using Data.Entities;
-using Microsoft.EntityFrameworkCore;
-using Data.DBContext;
+using ScaleApp.Data.DBContext;
+using ScaleApp.Data.Entities;
 
-namespace Data.Repositories
+namespace ScaleApp.Data.Repositories
 {
     public interface IApplicationRepository : IRepository<Application>
     {
     }
 
-    public class ApplicationRepository : Repository<Application>, IApplicationRepository
+    public class ApplicationRepository(DataContext context) : Repository<Application>(context), IApplicationRepository
     {
-
-        public ApplicationRepository(DataContext context) : base(context)
-        {
-
-        }
-
-
     }
 
 

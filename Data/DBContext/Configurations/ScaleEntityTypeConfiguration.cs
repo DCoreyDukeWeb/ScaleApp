@@ -1,10 +1,8 @@
-using Data.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
+using ScaleApp.Data.Entities;
 
-namespace Data.DBContext.Configurations
+namespace ScaleApp.Data.DBContext.Configurations
 {
     public class ScaleEntityTypeConfiguration : IEntityTypeConfiguration<Scale>
     {
@@ -12,6 +10,12 @@ namespace Data.DBContext.Configurations
         {
             builder
                 .HasKey(x => x.Id);
+
+            builder
+                .HasOne(x => x.Location)
+                .WithMany(x => x.Scales)
+                .HasForeignKey(x => x.LocationId)
+                .OnDelete(DeleteBehavior.NoAction);
 
             builder
                 .Property(x => x.Id)
@@ -79,6 +83,8 @@ namespace Data.DBContext.Configurations
             builder
                 .ToTable("Scales", "dbo");
 
+            builder
+                .ToTable(c => c.HasCheckConstraint("CK__Scales__Id__5FB337D6", "([id]>(0))"));
         }
     }
 }

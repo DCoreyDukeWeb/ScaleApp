@@ -1,15 +1,17 @@
 /*************************************************************************
  * Author: DCoreyDuke
  ************************************************************************/
-using DCoreyDuke.CodeBase.Interfaces;
+
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using DCoreyDuke.CodeBase.Interfaces;
 
-namespace Data.Entities
+namespace ScaleApp.Data.Entities
 {
     [Table("Customers")]
     public partial class Customer : IEntity, ITableObject
     {
+        
         [Required]
         [Key]
         public int Id { get; set; }

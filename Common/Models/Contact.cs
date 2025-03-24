@@ -1,14 +1,14 @@
 ﻿/*************************************************************************
  * Author: DCoreyDuke
  ************************************************************************/
-using Common.Interfaces;
-using DCoreyDuke.CodeBase.Interfaces;
-using DCoreyDuke.CodeBase.Objects;
-using DCoreyDuke.CodeBase.ValueObjects.General;
-using System.Net;
-using System.Text.Json;
 
-namespace Common.Models
+using System.Text.Json;
+using DCoreyDuke.CodeBase.Interfaces;
+using DCoreyDuke.CodeBase.ValueObjects;
+using DCoreyDuke.CodeBase.ValueObjects.General;
+using ScaleApp.Common.Interfaces;
+
+namespace ScaleApp.Common.Models
 {
 
     public class Contact : IDomainModel, IJsonSerializable, IContact
@@ -99,6 +99,27 @@ namespace Common.Models
             _notes = notes;
         }
 
+         public Contact(int id, string name, string? phone1, string? phone2, string? fax,
+                       string? email1, string? email2, string? url, string address1, string address2,
+                       string city, State state, string zip, DateTime? lastContacted, string? notes)
+        {
+            Id = id;
+            _contactName = new(name);
+            _name = _contactName.GetName(NameFormat.FirstNameFirst);
+            _phone1 = new PhoneNumber(phone1) ?? null;
+            _phone2 = new PhoneNumber(phone2) ?? null;
+            _fax = new PhoneNumber(fax) ?? null; ;
+            _email1 = new EmailAddress(email1) ?? null;
+            _email2 = new EmailAddress(email2) ?? null;
+            _url = new Url(url) ?? null;
+            Address _address = new Address(address1, address2, string.Empty, city, state, zip);
+            _location = new Location(_name, _address);
+            _lastContacted = lastContacted ?? DateTime.Now;
+            _notes = notes;
+        }
+
+
+        public int Id { get; set; }
         public string Name
         {
             get

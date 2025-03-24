@@ -1,11 +1,12 @@
 /*************************************************************************
  * Author: DCoreyDuke
  ************************************************************************/
-using DCoreyDuke.CodeBase.Interfaces;
+
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using DCoreyDuke.CodeBase.Interfaces;
 
-namespace Data.Entities
+namespace ScaleApp.Data.Entities
 {
     [Table("Contacts")]
     public partial class Contact : IEntity, ITableObject
@@ -13,6 +14,8 @@ namespace Data.Entities
         [Required]
         [Key]
         public int Id { get; set; }
+
+        public int? LocationId { get; set; }
 
         [StringLength(256)]
         public string? Name { get; set; }
@@ -35,8 +38,6 @@ namespace Data.Entities
         [StringLength(128)]
         public string? Url { get; set; }
 
-        public int? LocationId { get; set; }
-
         public virtual Location? Location { get; set; }
 
         public DateTime? CreatedOn { get; set; }
@@ -46,5 +47,7 @@ namespace Data.Entities
         public DateTime? LastContacted { get; set; }
 
         public string? Notes { get; set; }
+
+        public virtual ICollection<Customer> Contacts { get; set; } = new HashSet<Customer>();
     }
 }

@@ -1,12 +1,12 @@
 ﻿/*************************************************************************
  * Author: DCoreyDuke
  ************************************************************************/
-using Common.Interfaces;
-using DCoreyDuke.CodeBase.Interfaces;
+
 using System.Text.Json;
+using DCoreyDuke.CodeBase.Interfaces;
+using ScaleApp.Common.Interfaces;
 
-
-namespace Common.Models
+namespace ScaleApp.Common.Models
 {
 
     [Serializable]

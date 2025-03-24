@@ -1,13 +1,13 @@
 ﻿/*************************************************************************
  * Author: DCoreyDuke
  ************************************************************************/
+
+using System.Text.Json;
 using DCoreyDuke.CodeBase.Auth;
 using DCoreyDuke.CodeBase.Extensions;
 using DCoreyDuke.CodeBase.Interfaces;
-using System.Text.Json;
 
-
-namespace Common.Models
+namespace ScaleApp.Common.Models
 {
     public class Permission : AuthPermission, IDomainModel, IJsonSerializable, IEquatable<Permission>
     {
@@ -17,9 +17,15 @@ namespace Common.Models
         public Permission(string name) : base(name)
         {
         }
+         public Permission(int id, string name) : base(name)
+        {
+            Id = id;
+        }
         public Permission(AuthPermission permission) : base(permission)
         {
         }
+
+         public int Id { get; set; }
 
         public bool IsValid { get { Validate(); return _validationErrors.Count == 0; } }
 

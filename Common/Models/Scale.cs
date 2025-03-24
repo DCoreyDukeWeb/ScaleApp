@@ -1,10 +1,11 @@
 ﻿/*************************************************************************
  * Author: DCoreyDuke
  ************************************************************************/
-using DCoreyDuke.CodeBase.Interfaces;
-using System.Text.Json;
 
-namespace Common.Models
+using System.Text.Json;
+using DCoreyDuke.CodeBase.Interfaces;
+
+namespace ScaleApp.Common.Models
 {
 
     public class Scale : IDomainModel, IJsonSerializable
@@ -39,6 +40,21 @@ namespace Common.Models
             _notes = notes;
         }
 
+        public Scale(int id, string name, Location location, ScaleDetails? scaleDetails, DateTime? dateInstalled, DateTime? dateLastCalibrated, string? installedBy, string? calibratedBy, string? notes) : this()
+        {
+            _name = name;
+            _location = location;
+            _scaleDetails = scaleDetails;
+            _dateInstalled = dateInstalled;
+            _dateLastCalibrated = dateLastCalibrated;
+            _installedBy = installedBy;
+            _calibratedBy = calibratedBy;
+            _notes = notes;
+            Id = id;
+        }
+
+
+        public int Id { get; set; }
         public string Name { get; }
         public Location Location { get; }
         public ScaleDetails? ScaleDetails { get; }

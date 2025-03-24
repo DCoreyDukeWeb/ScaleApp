@@ -1,10 +1,11 @@
 ﻿/*************************************************************************
  * Author: DCoreyDuke
  ************************************************************************/
-using DCoreyDuke.CodeBase.Objects;
+
+using DCoreyDuke.CodeBase.ValueObjects;
 using ScaleApp.Services.Interfaces;
 
-namespace Services.Mappers.EntityToModel
+namespace ScaleApp.Services.Mappers.EntityToModel
 {
     /// <summary>
     /// Represents a contact entity that maps data from a Data.Entities.Contact to a Common.Models.Contact. It includes
@@ -12,22 +13,19 @@ namespace Services.Mappers.EntityToModel
     /// </summary>
     public class Contact : EntityToModel<Data.Entities.Contact, Common.Models.Contact>
     {
-        private Data.Entities.Contact _entity;
-        private Common.Models.Contact _model;
+        private readonly Data.Entities.Contact _entity;
+        private readonly Common.Models.Contact _model;
 
         private Contact(){ }
 
         public Contact(Data.Entities.Contact entity)
         {
-            if (entity == null)
-            {
-                throw new ArgumentNullException("Data.Entities.Contact Must Be Provided");
-            }
+            ArgumentNullException.ThrowIfNull(entity);
             _entity = entity;
             _model = Map();
         }
 
-        public Common.Models.Contact Map()
+        private Common.Models.Contact Map()
         {
             /*
              *public Contact(string name, string? phone1, string? phone2, string? fax,
@@ -38,6 +36,7 @@ namespace Services.Mappers.EntityToModel
             */
             return new Common.Models.Contact
             (
+                _entity.Id,
                 _entity.Name!,
                 _entity.Phone1,
                 _entity.Phone2,
@@ -55,8 +54,8 @@ namespace Services.Mappers.EntityToModel
            );       
         }
 
-        public Data.Entities.Contact Unmapped { get { return _entity; } }
+        public Data.Entities.Contact Unmapped => _entity;
 
-        public Common.Models.Contact Mapped{get{return _model;} }
+        public Common.Models.Contact Mapped => _model;
     }
 }

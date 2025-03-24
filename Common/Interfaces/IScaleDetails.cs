@@ -2,7 +2,7 @@
  * Author: DCoreyDuke
  ************************************************************************/
 
-namespace Common.Interfaces
+namespace ScaleApp.Common.Interfaces
 {
     public interface IScaleDetails
     {

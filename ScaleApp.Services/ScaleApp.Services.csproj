@@ -8,8 +8,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\dcoreydukedev\dcoreyduke.codebase\DCoreyDuke.CodeBase.csproj" />
-    <ProjectReference Include="..\Common\Common.csproj" />
-    <ProjectReference Include="..\Data\Data.csproj" />
+        <ProjectReference Include="..\Common\ScaleApp.Common.csproj" />
+
+    
+    <ProjectReference Include="..\Data\ScaleApp.Data.csproj" />
   </ItemGroup>
   
 </Project>

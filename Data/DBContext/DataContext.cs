@@ -1,17 +1,11 @@
-using Data.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Data.Common;
+using ScaleApp.Data.Entities;
 
-namespace Data.DBContext
+namespace ScaleApp.Data.DBContext
 {
-    public partial class DataContext : DbContext
+    public partial class DataContext(DbContextOptions<DataContext> options) : DbContext(options)
     {
-        public DataContext(DbContextOptions<DataContext> options) : base(options)
-        {
-        }
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
 #if DEBUG
@@ -29,17 +23,15 @@ namespace Data.DBContext
             base.OnModelCreating(modelBuilder);
         }
 
-        public DbSet<Application> Applications { get; set; }
-        public DbSet<Contact> Contacts { get; set; }
-        public DbSet<Customer> Customers { get; set; }
-        public DbSet<Location> Locations { get; set; }
-        public DbSet<Permission> Permissions { get; set; }
-        public DbSet<RoleHasPermissions> RoleHasPermissions { get; set; }
-        public DbSet<Role> Roles { get; set; }
-        public DbSet<Scale> Scales { get; set; }
-        public DbSet<ScaleTicket> ScaleTickets { get; set; }
-        public DbSet<UserHasRole> UserHasRoles { get; set; }
-        public DbSet<User> Users { get; set; }
-
+        public DbSet<Application> Applications { get; set; } = null!;
+        public DbSet<Contact> Contacts { get; set; } = null!;
+        public DbSet<Customer> Customers { get; set; } = null!;
+        public DbSet<Location> Locations { get; set; } = null!;
+        public DbSet<Permission> Permissions { get; set; } = null!;
+        public DbSet<Role> Roles { get; set; } = null!;
+        public DbSet<RoleHasPermissions> RolePermissions { get; set; } = null!;
+        public DbSet<Scale> Scales { get; set; } = null!;
+        public DbSet<ScaleTicket> ScaleTickets { get; set; } = null!;
+        public DbSet<User> Users { get; set; } = null!;
     }
 }

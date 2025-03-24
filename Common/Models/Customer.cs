@@ -1,10 +1,10 @@
-﻿using Common.Interfaces;
+﻿using System.Text.Json;
 using DCoreyDuke.CodeBase.Interfaces;
-using DCoreyDuke.CodeBase.Objects;
+using DCoreyDuke.CodeBase.ValueObjects;
 using DCoreyDuke.CodeBase.ValueObjects.General;
-using System.Text.Json;
+using ScaleApp.Common.Interfaces;
 
-namespace Common.Models
+namespace ScaleApp.Common.Models
 {
 
     public class Customer : IDomainModel, IJsonSerializable, ICustomer
@@ -69,6 +69,25 @@ namespace Common.Models
             _notes = notes;
         }
 
+         public Customer(int id, string name,string phone1, string phone2, string fax, string email1, string email2, string url, string address1, string address2, string city, State state, string zip, DateTime? lastContacted, string notes) : this()
+        {
+            PhoneNumber phone1Obj = new PhoneNumber(phone1);
+            PhoneNumber phone2Obj = new PhoneNumber(phone2);
+            PhoneNumber faxObj = new PhoneNumber(fax);
+            EmailAddress email1Obj = new EmailAddress(email1);
+            EmailAddress email2Obj = new EmailAddress(email2);
+            Url urlObj = new Url(url);
+            Address address = new Address(address1, address2, string.Empty, city, state, zip);
+            Location location = new Location(name, address);
+            _name = name;
+            _contact = new Contact(new Name(name), phone1Obj, phone2Obj, faxObj, email1Obj, email2Obj, urlObj, location, lastContacted, notes);
+            _location = location;
+            _notes = notes;
+            Id = id;
+        }
+
+
+        public int Id { get; set; }
         public string Name => _name;
         public Location Location => _location;
         public Contact Contact => _contact;

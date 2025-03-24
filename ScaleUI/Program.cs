@@ -1,4 +1,6 @@
-namespace ScaleUI
+using ScaleApp.ScaleUI;
+
+namespace ScaleApp.ScaleUI
 {
     internal static class Program
     {

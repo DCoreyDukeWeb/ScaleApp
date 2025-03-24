@@ -1,12 +1,12 @@
 ﻿/*************************************************************************
  * Author: DCoreyDuke
  ************************************************************************/
+
+using System.Text.Json;
 using DCoreyDuke.CodeBase.Auth;
 using DCoreyDuke.CodeBase.Interfaces;
-using System.Text.Json;
 
-
-namespace Common.Models
+namespace ScaleApp.Common.Models
 {
     public class Role : AuthRole, IDomainModel, IJsonSerializable, IEquatable<Role>
     {
@@ -16,13 +16,25 @@ namespace Common.Models
         public Role(string name) : base(name)
         {
         }
+        public Role(int id, string name) : base(name)
+        {
+            Id = id;
+        }
         public Role(AuthRole role) : base(role)
         {
         }
         public Role(string name, List<AuthPermission> permissions) : base(name, permissions)
         {
         }
+         public Role(int id, int applicationId, string name, List<AuthPermission> permissions) : base(name, permissions)
+        {
+            Id = id;
+            ApplicationId = applicationId;
+        }
 
+
+        public int Id { get; set; }
+        public int ApplicationId { get; set; }
 
         public bool IsValid { get { Validate(); return _validationErrors.Count == 0; } }
 

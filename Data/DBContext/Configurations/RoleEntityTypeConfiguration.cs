@@ -1,10 +1,8 @@
-using Data.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
+using ScaleApp.Data.Entities;
 
-namespace Data.DBContext.Configurations
+namespace ScaleApp.Data.DBContext.Configurations
 {
     public class RoleEntityTypeConfiguration : IEntityTypeConfiguration<Role>
     {
@@ -13,6 +11,11 @@ namespace Data.DBContext.Configurations
             builder
                 .HasKey(x => x.Id);
 
+            builder
+                .HasOne(x => x.Application)
+                .WithMany(x => x.Roles)
+                .HasForeignKey(x => x.ApplicationId)
+                .OnDelete(DeleteBehavior.NoAction);
 
             builder
                 .Property(x => x.Id)
@@ -24,6 +27,18 @@ namespace Data.DBContext.Configurations
                 .HasColumnName("Name")
                 .HasColumnType("varchar")
                 .IsUnicode(false);
+
+            builder
+                .Property(x => x.CreatedOn)
+                .HasColumnName("CreatedOn")
+                .HasColumnType("datetime")
+                .HasDefaultValueSql("(getdate())");
+
+            builder
+                .Property(x => x.UpdatedOn)
+                .HasColumnName("UpdatedOn")
+                .HasColumnType("datetime")
+                .HasDefaultValueSql("(getdate())");
 
             builder
                 .ToTable("Roles", "dbo");

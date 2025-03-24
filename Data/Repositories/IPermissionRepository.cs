@@ -1,8 +1,8 @@
-﻿using Data.DBContext;
-using Data.Entities;
-using DCoreyDuke.CodeBase.Abstracts;
+﻿using DCoreyDuke.CodeBase.Abstracts;
+using ScaleApp.Data.DBContext;
+using ScaleApp.Data.Entities;
 
-namespace Data.Repositories
+namespace ScaleApp.Data.Repositories
 {
     public interface IPermissionRepository
     {
@@ -10,18 +10,11 @@ namespace Data.Repositories
 
    
 
-     public class PermissionRepository : Repository<Permission>, IPermissionRepository
+     public class PermissionRepository(DataContext context) : Repository<Permission>(context), IPermissionRepository
     {
-
-        public PermissionRepository(DataContext context) : base(context)
-        {
-
-        }
-
-
     }
 
-   
 
-    
+
+
 }

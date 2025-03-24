@@ -1,10 +1,8 @@
-using Data.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
+using ScaleApp.Data.Entities;
 
-namespace Data.DBContext.Configurations
+namespace ScaleApp.Data.DBContext.Configurations
 {
     public class ScaleTicketEntityTypeConfiguration : IEntityTypeConfiguration<ScaleTicket>
     {
@@ -14,13 +12,14 @@ namespace Data.DBContext.Configurations
                 .HasKey(x => x.Id);
 
             builder
-                .Property(x => x.Id)
-                .HasColumnName("Id")
-                .HasPrecision(10, 0);
+                .HasOne(x => x.Scale)
+                .WithMany(x => x.Scales)
+                .HasForeignKey(x => x.ScaleId)
+                .OnDelete(DeleteBehavior.NoAction);
 
             builder
-                .Property(x => x.ScaleId)
-                .HasColumnName("ScaleId")
+                .Property(x => x.Id)
+                .HasColumnName("Id")
                 .HasPrecision(10, 0);
 
             builder

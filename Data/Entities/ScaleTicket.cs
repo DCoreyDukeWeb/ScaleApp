@@ -1,31 +1,36 @@
 /*************************************************************************
  * Author: DCoreyDuke
  ************************************************************************/
-using DCoreyDuke.CodeBase.Interfaces;
+
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using DCoreyDuke.CodeBase.Interfaces;
 
-namespace Data.Entities
+namespace ScaleApp.Data.Entities
 {
     [Table("ScaleTickets")]
     public partial class ScaleTicket : IEntity, ITableObject
     {
-        [Required]
+       [Required]
         [Key]
         public int Id { get; set; }
 
         public int ScaleId { get; set; }
 
-        public Scale Scale { get; set; }
+        public virtual Scale Scale { get; set; } = null!;
+
+        public DateTime? CreatedOn { get; set; }
+
+        public int CreatedBy { get; set; }
 
         public int CustomerId { get; set; }
 
         public virtual Customer Customer { get; set; }
 
-        [StringLength(255)]
+        [StringLength(256)]
         public string TruckId { get; set; } = String.Empty;
 
-        [StringLength(255)]
+        [StringLength(256)]
         public string DriverId { get; set; } = String.Empty;
 
         public int WeightTare { get; set; }
@@ -37,11 +42,6 @@ namespace Data.Entities
         public int VehicleType { get; set; }
 
         public string Notes { get; set; } = String.Empty;
-
-        public int CreatedBy { get; set; }
-
-        public DateTime? CreatedOn { get; set; }
-        
-        public DateTime? UpdatedOn { get; set; }
+        public DateTime? UpdatedOn { get => ((IEntity)Scale).UpdatedOn; set => ((IEntity)Scale).UpdatedOn = value; }
     }
 }

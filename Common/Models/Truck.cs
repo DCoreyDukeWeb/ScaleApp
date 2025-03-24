@@ -1,12 +1,7 @@
-﻿using DCoreyDuke.CodeBase.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
+﻿using System.Text.Json;
+using DCoreyDuke.CodeBase.Interfaces;
 
-namespace Common.Models
+namespace ScaleApp.Common.Models
 {
    public class Truck : IDomainModel, IJsonSerializable
     {

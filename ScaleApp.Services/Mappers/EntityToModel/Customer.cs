@@ -1,10 +1,11 @@
 ﻿/*************************************************************************
  * Author: DCoreyDuke
  ************************************************************************/
-using DCoreyDuke.CodeBase.Objects;
+
+using DCoreyDuke.CodeBase.ValueObjects;
 using ScaleApp.Services.Interfaces;
 
-namespace Services.Mappers.EntityToModel
+namespace ScaleApp.Services.Mappers.EntityToModel
 {
     /// <summary>
     /// Represents a customer entity that maps data from a Data.Entities.Customer to a Common.Models.Customer. It
@@ -12,22 +13,21 @@ namespace Services.Mappers.EntityToModel
     /// </summary>
     public class Customer : EntityToModel<Data.Entities.Customer, Common.Models.Customer>
     {
-        private Data.Entities.Customer _entity;
-        private Common.Models.Customer _model;
+        private readonly Data.Entities.Customer _entity;
+        private readonly Common.Models.Customer _model;
         private Customer() { }
         public Customer(Data.Entities.Customer entity)
         {
-            if (entity == null)
-            {
-                throw new ArgumentNullException("Data.Entities.Customer Must Be Provided");
-            }
+            ArgumentNullException.ThrowIfNull(entity);
             _entity = entity;
             _model = Map();
         }
-        public Common.Models.Customer Map()
+
+        private Common.Models.Customer Map()
         {
             return new Common.Models.Customer
             (
+                _entity.Id,
                 _entity.Name!,
                 _entity.Contact!.Phone1!,
                 _entity.Contact.Phone2!,
@@ -44,7 +44,7 @@ namespace Services.Mappers.EntityToModel
                 _entity.Notes!
            );
         }
-        public Data.Entities.Customer Unmapped { get { return _entity; } }
-        public Common.Models.Customer Mapped { get { return _model; } }
+        public Data.Entities.Customer Unmapped => _entity;
+        public Common.Models.Customer Mapped => _model;
     }
 }

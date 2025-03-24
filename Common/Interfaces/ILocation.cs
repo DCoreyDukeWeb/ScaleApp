@@ -1,9 +1,10 @@
 ﻿/*************************************************************************
  * Author: DCoreyDuke
  ************************************************************************/
+
 using DCoreyDuke.CodeBase.ValueObjects.General;
 
-namespace Common.Interfaces
+namespace ScaleApp.Common.Interfaces
 {
     public interface ILocation
     {

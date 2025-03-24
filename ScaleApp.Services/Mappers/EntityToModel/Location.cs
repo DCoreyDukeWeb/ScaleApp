@@ -1,12 +1,13 @@
 ﻿/*************************************************************************
  * Author: DCoreyDuke
  ************************************************************************/
-using DCoreyDuke.CodeBase.Objects;
+
+using System.Text.Json;
+using DCoreyDuke.CodeBase.ValueObjects;
 using DCoreyDuke.CodeBase.ValueObjects.General;
 using ScaleApp.Services.Interfaces;
-using System.Text.Json;
 
-namespace Services.Mappers.EntityToModel
+namespace ScaleApp.Services.Mappers.EntityToModel
 {
     /// <summary>
     /// Represents a location entity that maps data from a Data.Entities.Location to a Common.Models.Location. It
@@ -14,22 +15,19 @@ namespace Services.Mappers.EntityToModel
     /// </summary>
     public class Location : EntityToModel<Data.Entities.Location, Common.Models.Location>
     {
-        private Data.Entities.Location _entity;
-        private Common.Models.Location _model;
+        private readonly Data.Entities.Location _entity;
+        private readonly Common.Models.Location _model;
 
         private Location(){ }
 
         public Location(Data.Entities.Location entity)
         {
-            if (entity == null)
-            {
-                throw new ArgumentNullException("Data.Entities.Location Must Be Provided");
-            }
+            ArgumentNullException.ThrowIfNull(entity);
             _entity = entity;
             _model = Map();
         }
 
-        public Common.Models.Location Map()
+        private Common.Models.Location Map()
         {
 
             /*public Location(
@@ -44,6 +42,7 @@ namespace Services.Mappers.EntityToModel
             
             var _m =  new Common.Models.Location
             (
+                _entity.Id,
                 _entity.Name!,
                 _entity.Address1!,
                 _entity.Address2!,
@@ -59,7 +58,7 @@ namespace Services.Mappers.EntityToModel
             return _m;
         }
 
-        public Data.Entities.Location Unmapped { get { return _entity; } }
-        public Common.Models.Location Mapped{get{return _model;} }
-}
+        public Data.Entities.Location Unmapped => _entity;
+        public Common.Models.Location Mapped => _model;
+    }
 }

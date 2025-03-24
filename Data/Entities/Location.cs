@@ -1,13 +1,15 @@
 /*************************************************************************
  * Author: DCoreyDuke
  ************************************************************************/
-using DCoreyDuke.CodeBase.Interfaces;
+
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using DCoreyDuke.CodeBase.Interfaces;
 
-namespace Data.Entities
+namespace ScaleApp.Data.Entities
 {
     [Table("Locations")]
+    [ComplexType]
     public partial class Location : IEntity, ITableObject
     {
         [Required]
@@ -44,6 +46,10 @@ namespace Data.Entities
 
         public string? Notes { get; set; }
 
-       
+        public virtual ICollection<Contact> Contacts { get; set; } = new HashSet<Contact>();
+
+        public virtual ICollection<Customer> Customers { get; set; } = new HashSet<Customer>();
+
+        public virtual ICollection<Scale> Scales { get; set; } = new HashSet<Scale>();
     }
 }

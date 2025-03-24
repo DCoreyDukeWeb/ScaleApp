@@ -5,7 +5,7 @@
 using DCoreyDuke.CodeBase.Auth;
 using ScaleApp.Services.Interfaces;
 
-namespace ScaleApp.Services.Mappers.EntityToModel
+namespace ScaleApp.Services.Mappers.ModelToEntity
 {
     /// <summary>
     /// Represents a user by mapping a Data.Entities.User to a Common.Models.User. It initializes the model with user
@@ -13,7 +13,7 @@ namespace ScaleApp.Services.Mappers.EntityToModel
     /// </summary>
     public class User : EntityToModel<Data.Entities.User, Common.Models.User>
     {
-        private readonly Data.Entities.User _entity;
+        private readonly Data.Entities.User _entity = new Data.Entities.User();
         private readonly Common.Models.User _model;
 
         private User(){ }
@@ -29,7 +29,6 @@ namespace ScaleApp.Services.Mappers.EntityToModel
         {
             return new Common.Models.User
             (
-                _entity.Id,
                 _entity.Username,
                 _entity.Email,
                 _entity.Password,
@@ -37,7 +36,7 @@ namespace ScaleApp.Services.Mappers.EntityToModel
             );       
         }
 
-        public Data.Entities.User Unmapped => _entity;
-        public Common.Models.User Mapped => _model;
+        public Data.Entities.User Mapped => _entity;
+        public Common.Models.User Unmapped => _model;
     }
 }

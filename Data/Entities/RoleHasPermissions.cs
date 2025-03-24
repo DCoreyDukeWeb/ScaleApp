@@ -1,22 +1,27 @@
-﻿using DCoreyDuke.CodeBase.Interfaces;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using DCoreyDuke.CodeBase.Interfaces;
 
-namespace Data.Entities
+namespace ScaleApp.Data.Entities
 {
 
     [Table("RoleHasPermissions")]
     public class RoleHasPermissions : IJoinTableObject<Role, Permission>, IJoinEntity<Role, Permission>, IEntity, ITableObject
     {
-        [Required, Key]
+        [Required]
+        [Key]
         public int Id { get; set; }
-        [Column]
+
         public int RoleId { get; set; }
-        [Column]
+
         public int PermissionId { get; set; }
-        [Column]
+
+        public virtual Role Role { get; set; } = null!;
+
+        public virtual Permission Permission { get; set; } = null!;
+
         public DateTime? CreatedOn { get; set; }
-        [Column]
+
         public DateTime? UpdatedOn { get; set; }
     }
 

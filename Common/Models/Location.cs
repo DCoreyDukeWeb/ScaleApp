@@ -1,13 +1,14 @@
 ﻿/*************************************************************************
  * Author: DCoreyDuke
  ************************************************************************/
-using Common.Interfaces;
-using DCoreyDuke.CodeBase.Interfaces;
-using DCoreyDuke.CodeBase.Objects;
-using DCoreyDuke.CodeBase.ValueObjects.General;
-using System.Text.Json;
 
-namespace Common.Models
+using System.Text.Json;
+using DCoreyDuke.CodeBase.Interfaces;
+using DCoreyDuke.CodeBase.ValueObjects;
+using DCoreyDuke.CodeBase.ValueObjects.General;
+using ScaleApp.Common.Interfaces;
+
+namespace ScaleApp.Common.Models
 {
 
     public class Location : IDomainModel, IJsonSerializable, ILocation
@@ -42,6 +43,13 @@ namespace Common.Models
             _address = new Address(addressLine1, addressLine2, string.Empty, city, state, zip);
         }
 
+        public Location(int id, string name, string addressLine1, string addressLine2, string city, State state, string zip) : this()
+        {
+            Id = id;
+            _name = name;
+            _address = new Address(addressLine1, addressLine2, string.Empty, city, state, zip);
+        }
+
         public Location(Address address) : this()
         {            
             _address = address;
@@ -68,6 +76,16 @@ namespace Common.Models
             _notes = notes;
         }
 
+        public Location(int id, string name, Address address, LatLngStr latLng, string notes) : this()
+        {
+            _name = name;
+            _address = address;
+            _latLng = latLng;
+            _notes = notes;
+            Id = id;
+        }
+
+        public int Id { get; set; }
         public string Name
         {
             get

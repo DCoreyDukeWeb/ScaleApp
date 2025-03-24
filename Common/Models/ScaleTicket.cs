@@ -1,7 +1,7 @@
-﻿using DCoreyDuke.CodeBase.Interfaces;
-using System.Text.Json;
+﻿using System.Text.Json;
+using DCoreyDuke.CodeBase.Interfaces;
 
-namespace Common.Models
+namespace ScaleApp.Common.Models
 {
 
     public class ScaleTicket : IModel
@@ -37,6 +37,22 @@ namespace Common.Models
             _notes = notes;
         }
 
+        public ScaleTicket(int id, string name, Scale scale, Customer customer, string truckId, string driverId, int grossWeight, int tareWeight, int netWeight, string notes) : this()
+        {
+            _name = name;
+            _scale = scale;
+            _customer = customer;
+            _truckId = truckId;
+            _driverId = driverId;
+            _grossWeight = grossWeight;
+            _tareWeight = tareWeight;
+            _netWeight = netWeight;
+            _notes = notes;
+            Id = id;
+        }
+
+
+        public int Id { get; set; }
         public string Name { get{ return _name;} }
         public Scale Scale { get { return _scale; } }
         public Customer Customer { get { return _customer; } }

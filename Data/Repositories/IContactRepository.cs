@@ -1,21 +1,14 @@
-﻿using Data.DBContext;
-using Data.Entities;
-using DCoreyDuke.CodeBase.Abstracts;
+﻿using DCoreyDuke.CodeBase.Abstracts;
+using ScaleApp.Data.DBContext;
+using ScaleApp.Data.Entities;
 
-namespace Data.Repositories
+namespace ScaleApp.Data.Repositories
 {
     public interface IContactRepository
     {
     }
 
-    public class ContactRepository : Repository<Contact>, IContactRepository
+    public class ContactRepository(DataContext context) : Repository<Contact>(context), IContactRepository
     {
-
-        public ContactRepository(DataContext context) : base(context)
-        {
-
-        }
-
-
     }
 }

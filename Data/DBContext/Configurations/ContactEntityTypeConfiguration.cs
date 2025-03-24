@@ -1,10 +1,8 @@
-using Data.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
+using ScaleApp.Data.Entities;
 
-namespace Data.DBContext.Configurations
+namespace ScaleApp.Data.DBContext.Configurations
 {
     public class ContactEntityTypeConfiguration : IEntityTypeConfiguration<Contact>
     {
@@ -12,6 +10,12 @@ namespace Data.DBContext.Configurations
         {
             builder
                 .HasKey(x => x.Id);
+
+            builder
+                .HasOne(x => x.Location)
+                .WithMany(x => x.Contacts)
+                .HasForeignKey(x => x.LocationId)
+                .OnDelete(DeleteBehavior.NoAction);
 
             builder
                 .Property(x => x.Id)
@@ -59,11 +63,6 @@ namespace Data.DBContext.Configurations
                 .HasColumnName("Url")
                 .HasColumnType("varchar")
                 .IsUnicode(false);
-
-            builder
-                .Property(x => x.LocationId)
-                .HasColumnName("LocationId")
-                .HasPrecision(10, 0);
 
             builder
                 .Property(x => x.CreatedOn)

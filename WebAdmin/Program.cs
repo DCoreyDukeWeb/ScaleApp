@@ -1,8 +1,8 @@
-﻿using Data.DBContext;
-using Microsoft.EntityFrameworkCore;
-using WebAdmin.Components;
+﻿using Microsoft.EntityFrameworkCore;
+using ScaleApp.Data.DBContext;
+using ScaleApp.WebAdmin.Components;
 
-namespace WebAdmin
+namespace ScaleApp.WebAdmin
 {
     public class Program
     {

@@ -1,21 +1,14 @@
-﻿using Data.DBContext;
-using Data.Entities;
-using DCoreyDuke.CodeBase.Abstracts;
+﻿using DCoreyDuke.CodeBase.Abstracts;
+using ScaleApp.Data.DBContext;
+using ScaleApp.Data.Entities;
 
-namespace Data.Repositories
+namespace ScaleApp.Data.Repositories
 {
     public interface ILocationRepository
     {
     }
     
-    public class LocationRepository : Repository<Location>, ILocationRepository
+    public class LocationRepository(DataContext context) : Repository<Location>(context), ILocationRepository
     {
-
-        public LocationRepository(DataContext context) : base(context)
-        {
-
-        }
-
-
     }
 }
